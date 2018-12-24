@@ -28,7 +28,7 @@ app.post('/tareas', function(req, res) {
 
     let tarea = new Tarea({
         nombre: body.nombre,
-        email: body.email,
+        descripcion: body.descripcion,
         estatus: body.estatus
     });
 
