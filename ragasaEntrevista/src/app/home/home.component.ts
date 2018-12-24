@@ -3,42 +3,53 @@ import { ItemEventData, ListView } from "tns-core-modules/ui/list-view";
 import { TareasService } from "~/app/services/tareas.service";
 
 @Component({
-    selector: "Home",
-    moduleId: module.id,
-    templateUrl: "./home.component.html"
+  selector: "Home",
+  moduleId: module.id,
+  templateUrl: "./home.component.html"
 })
 export class HomeComponent implements OnInit {
-    data = [];
+  data = [];
+  tarea = {
+    _id: "",
+    nombre: "",
+    descripcion: "",
+    estatus: 1
+  };
 
-    constructor(public _tareasService: TareasService) {
-        // Use the component constructor to inject providers.
-    }
+  constructor(public _tareasService: TareasService) {
+    // Use the component constructor to inject providers.
+  }
 
-    async ngOnInit() {
+  async ngOnInit() {
+    // let test = (await this._tareasService.getTarea()).tareas;
 
-        // let test = (await this._tareasService.getTarea()).tareas;
-        // this._tareasService.getTareas();
+    // this.data.push({
+    //   _id: "123dasd124",
+    //   nombre: "Tarea 1",
+    //   descripcion: "Tarea test",
+    //   Estatus: 1,
+    //   src:
+    //     "https://cdn3.iconfinder.com/data/icons/school-solid-icons-vol-1/96/003-512.png"
+    // });
 
-        // console.log(test);
+    this._tareasService.getTareas().subscribe((resp: any) => {
+      this.data = resp.tareas;
+    });
+  }
 
-        this.data.push({ text: "Bulbasaur", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" });
-        this.data.push({ text: "Ivysaur", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png" });
-        this.data.push({ text: "Venusaur", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png" });
-        this.data.push({ text: "Charmander", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" });
-        this.data.push({ text: "Charmeleon", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png" });
-        this.data.push({ text: "Charizard", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" });
-        this.data.push({ text: "Squirtle", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" });
-        this.data.push({ text: "Wartortle", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png" });
-        this.data.push({ text: "Blastoise", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png" });
-        this.data.push({ text: "Caterpie", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png" });
-        this.data.push({ text: "Metapod", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/11.png" });
-        this.data.push({ text: "Butterfree", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/12.png" });
-        this.data.push({ text: "Weedle", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/13.png" });
-        this.data.push({ text: "Kakuna", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png" });
-        this.data.push({ text: "Beedrill", src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png" });
-    }
+  onCreateTarea(tarea: any) {
+    this._tareasService.createTarea(tarea).subscribe((resp: any) => {
+      let tareaCreated = resp.tarea;
+    });
+  }
 
-    onItemTap(args) {
-        console.log("You tapped: " + this.data[args.index].text);
-    }
+  onDeleteTarea(tarea: any) {
+    this._tareasService.deleteTarea(tarea).subscribe((resp: any) => {
+      let tareaCreated = resp.tarea;
+    });
+  }
+
+  onItemTap(args) {
+    console.log("You tapped: " + this.data[args.index].nombre);
+  }
 }

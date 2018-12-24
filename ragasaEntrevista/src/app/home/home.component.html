@@ -1,12 +1,13 @@
-<ActionBar title="ListViews with Avatars/Thumbnails" class="action-bar">
+<ActionBar title="ListViews" class="action-bar">
 </ActionBar>
 
 <ScrollView class="page">
     <ListView class="list-group" [items]="data" (itemTap)="onItemTap($event)">
         <ng-template let-item="item">
             <GridLayout class="list-group-item" rows="*" columns="auto, *">
-                <Image row="0" col="0" [src]="item.src" class="thumb img-circle"></Image>
-                <Label row="0" col="1" [text]="item.text"></Label>
+                <!-- <Image row="0" col="0" [src]="item.src" class="thumb img-circle"></Image> -->
+                <Image row="0" col="0" src="https://cdn3.iconfinder.com/data/icons/school-solid-icons-vol-1/96/003-512.png" class="thumb img-circle"></Image>
+                <Label row="0" col="1" [text]="item.nombre"></Label>
             </GridLayout>
         </ng-template>
     </ListView>
